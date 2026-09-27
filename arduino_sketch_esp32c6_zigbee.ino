@@ -32,6 +32,17 @@ void setup() {
 
     rgbLedWrite(LED_PIN, 0, 0, 0);
     zbLight.onLightChange(onLightChange);
+
+    // 1. Defina o estado inicial desejado antes de inicializar a biblioteca
+    // Valores aceitos para StartUpOnOff:
+    // 0x00 = Off (Sempre desliga ao ligar a energia)
+    // 0x01 = On  (Sempre liga ao ligar a energia)
+    // 0x02 = Toggle (Inverte o estado anterior)
+    // 0xFF = Previous / Restaure (Mantém o último estado gravado na Flash)
+
+    zbLight.setPowerOnState(0xFF); // Exemplo: restaura o estado anterior ao reiniciar
+    zbLight.onLightChange(onLightChange);
+    Zigbee.addEndpoint(&zbLight);
     Zigbee.addEndpoint(&zbLight);
 
     zbLight.setManufacturerAndModel("CustomESP32", "ESP32C6-DevKit");
